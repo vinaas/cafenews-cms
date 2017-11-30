@@ -1,0 +1,103 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active .modal.fade.stick-up .modal-dialog {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -ms-transform: translate(0);
+    }
+
+    .ux-dialog-open {
+      overflow: hidden;
+    }
+
+    .ux-dialog-open .modal {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    ux-dialog {
+      padding: 0!important;
+      box-shadow: none !important;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .datepicker.dropdown-menu{
+      z-index: 999999!important
+    }
+
+
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <div class="modal fade stick-up" role="dialog" aria-hidden="true" data-backdrop="static" style="display:block">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header clearfix text-left">
+              <button click.delegate="ctrl.cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i></button>
+              <h5>${gettenBaiViet} <span class="semi-bold">Bài viết</span>
+
+              </h5>
+            </div>
+            <div class="modal-body">
+              <form role="form" class="desModalForm">
+                <div class="row  m-b-15">
+                    <div class="col-md-2  name m-t-5"> Đăng Bài Lúc </div>
+                    <div class="col-md-4 value form-group form-group-default">
+                      <input type="text" class="input-sm form-control" name="end" value.bind="item.publishDate | dateFormat & validate" datepicker>
+                    </div>
+                </div>
+
+                <div class="form-title">Thiết lập bài tiêu điểm</div>
+
+                <div class="row m-b-15">
+                    <div class="col-md-2  name m-t-5"> Vị trí: </div>
+
+                      <div class="col-md-9 value">
+                          <!-- <label repeat.for="option of dsViTri">
+                              <input type="radio" name="periodOptions" model.bind="option" checked.bind="$parent.selectedOption" click.delegate="clicked()"/>
+                            ${option.text}
+                          </label> -->
+                        <div class="radio radio-success" >
+
+                            <input type="radio" id="vitri1" value="1"  checked.bind="item.tieuDiem" >
+                            <label for="vitri1" > 1</label>
+                           
+                            <input type="radio" id="vitri2"  value="2" checked.bind="item.tieuDiem" >
+                            <label for="vitri2">2</label>
+
+                            <input type="radio" id="vitri3" value="3" checked.bind="item.tieuDiem">
+                            <label for="vitri3"> 3</label>
+
+                            <input type="radio" id="vitri4"  value="4" checked.bind="item.tieuDiem" >
+                            <label for="vitri4">4</label>
+
+                            <input type="radio" id="vitri5"  value="5" checked.bind="item.tieuDiem" >
+                            <label for="vitri5">5</label>
+
+                            <input type="radio" id="vitri6"  value="6" checked.bind="item.tieuDiem" >
+                            <label for="vitri6">6 (cột 2)</label>
+
+                            <input type="radio" id="vitri0"  value="0" checked.bind="item.tieuDiem" >
+                            <label for="vitri0">không chọn</label>
+                        </div>
+                    </div>
+                </div>
+                  
+                <div class="text-right m-t-20">
+                    <button click.delegate="ctrl.cancel()" type="button" class="btn btn-danger m-t-5" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                    <button show.bind="(item.title != '') && (item.slug != '') && (item.category != '') && (item.tenTacGia != '')" click.delegate="save()" type="submit" class="btn btn-primary  m-t-5"><i class="fa fa-check"></i> Đăng bài</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

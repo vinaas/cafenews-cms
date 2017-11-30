@@ -1,0 +1,8 @@
+<template>
+  <router-view></router-view>
+  <div if.bind="router.isNavigating" class="portlet-progress large" style="background-color: rgba(255, 255, 255, 0.8); display: block;">
+    <div class="progress-circle-indeterminate progress-circle-master"></div>
+
+    <div class="loading-logo">ADMIN</div>
+  </div>
+</template>

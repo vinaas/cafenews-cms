@@ -1,0 +1,47 @@
+<template>
+  <div class="page-sidebar" data-pages="sidebar">
+    <div id="appMenu" class="sidebar-overlay-slide from-top">
+    </div>
+    <!-- BEGIN SIDEBAR HEADER -->
+    <div class="sidebar-header">
+      <img src="../../../assets/img/cms-logo.png" alt="logo" class="brand" data-src="../../../assets/img/cms-logo.png" data-src-retina="../../../assets/img/cms-logo.png"
+        width="" height="40">
+      <div class="sidebar-header-controls">
+        <!--<button data-pages-toggle="#appMenu" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" type="button"><i class="fa fa-angle-down fs-16"></i>
+            </button>-->
+        <button data-toggle-pin="sidebar" class="btn btn-link visible-lg-inline" type="button"><i class="fa fs-12"></i>
+            </button>
+      </div>
+    </div>
+    <!-- END SIDEBAR HEADER -->
+    <!-- BEGIN SIDEBAR MENU -->
+    <div class="sidebar-menu">
+      <ul class="menu-items">
+
+        <li class=" m-t-30 ">
+          <a href="/#/admin/dashboard">
+                      <span class="title">Màn hình chính</span>
+                  </a>
+          <span class="icon-thumbnail "><i class="fa fa-bar-chart"></i></span>
+        </li>
+
+        <li>
+          <a href="javascript:;"><span class="title">Bài viết</span>
+              <span class="arrow"></span></a>
+          <span class="icon-thumbnail"><i class="fa fa-check-square-o"></i></span>
+
+          <ul class="sub-menu">
+
+            <li>
+              <a href="/#/admin/tao-bai-viet">Tạo mới bài viết </a>
+            </li>
+            <li>
+              <a href="/#/admin/ds-bai-viet">Danh Sách bài viết </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,62 @@
+<template>
+  <div class="container-fluid container-fixed-lg">
+    <div class="inner">
+      <br />
+      <br />
+      <h2> Chào mừng tới trang quản trị của báo Thời Báo Phương Đông</h2>
+      <br />
+      <br />
+      <p>Truy cập nhanh tới</p>
+      <button class="btn btn-primary"  click.delegate="goPage('TaoMoi')">Tạo Mới Bài Viết</button>
+      <button class="btn btn-primary" show.bind="enableAdminNav()" click.delegate="goPage('ChoDuyet')">Bài Viết Chờ Duyệt</button>
+      <button class="btn btn-primary" show.bind="enableAdminNav()" click.delegate="goPage('DaDang')">Bài Viết Đã Đăng</button>
+      <!-- <h3>date range example</h3>
+      <div class="input-daterange input-group" daterangepickter >
+        <input type="text" class="input-sm form-control" name="start" value.bind="d.start" datepicker>
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" value.bind="d.end" datepicker>
+      </div>
+      binding : ${d.start} - ${d.end}
+      <hr>
+      <h3>Obserable object example</h3>
+      <input type="text"  class = "form-control" value.bind="person.fn">
+      <input class="form-control" value.bind="person.ln"> 
+      <button class="btn btn-primary" disabled.bind="isDisable">ok</button>
+      <hr>
+      <h3> Async action example </h3>
+      <button data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading" btn-async="task.call:doClick()" class="btn btn-primary">Click Me</button>
+      
+      <hr>
+      <h3>jstree</h3>
+      Xem document <a href="https://www.jstree.com/"> jstree</a>
+      
+      <div id="data"></div>
+
+      <h3>select2</h3>
+
+      <select select2>
+        <option value="">AAA</option>
+        <option value="">AAA</option>
+        <option value="">AAA</option>
+      </select> 
+      ${selectedValue}
+    </div>
+     <h3>editor</h3>
+     ${ckEditorValue}
+     <textarea ckeditor value.bind="ckEditorValue"></textarea> -->
+
+      <!--<select name="" id="" select2 class="form-control">
+    <option value="1">1</option>
+  </select>
+  ${vl}
+  <input type="text" datetime-picker class="form-control" value.bind="vl" >
+  </div>
+  -->
+  <!-- <textarea ckeditor="config.bind: ckconfig; id.bind: ckId" value.bind="ckEditorValue"></textarea>
+      <uploader value.bind="hinhAnh" uri="http://5.189.139.30:4000/api/BaiVietContainers/tungtest/upload"></uploader>
+ -->
+
+      <!-- END PAGE CONTENT -->
+      
+
+</template>

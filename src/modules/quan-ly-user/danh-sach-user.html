@@ -1,0 +1,72 @@
+<template>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h5 class="m-t-0">
+          Tìm kiếm
+      </h5>
+      <form role="form" lpformnum="2" class="form-filter">
+        <div class="form-group">
+          <label>Tên user</label>
+          <input type="text" class="form-control input-sm" value.bind="filter.where.username.ilike">
+        </div>
+        <div class="form-group">
+          <button data-loading-text="Loading" btn-async="task.call:runFilter()" class="btn btn-primary btn-cons btn-sm m-t-25" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <button click.delegate="runCreate()" class="btn btn-default btn-sm m-b-10  m-t-5 text-primary" type="button" data-toggle="modal"><i class="fa fa-file"></i> Tạo mới</button>
+      <loader async-task.bind="asyncTask">
+        <table class="table table-hover" aurelia-table="data.bind: items; display-data.bind: $displayData; ">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Chi tiết</th>
+              <th>Hành động </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr repeat.for="item of $displayData">
+              <td>${$index+1}</td>
+              <td>${item.username}</td>
+              <td>${item.email}</td> 
+              <!-- <td>${item.ngayTao | dateTimeFormat}</td> -->
+              <td><a href="javascript:void(0);" click.delegate="runView(item)" class="text-primary"><i class="fa fa-user-circle-o"></i> Xem</a></td>
+              <td class="v-align-middle">
+                <div class="btn-group sm-m-t-10">
+                  <button click.delegate="runUpdate(item)" type="button" class="btn btn-default btn-sm text-primary"><i class="fa fa-edit"></i> Chỉnh sửa</button>
+                  <button click.delegate="runDelete(item)" type="button" class="btn btn-default btn-sm text-danger"><i class="fa fa-trash-o"></i> Xóa</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-md-8">
+            <aut-pagination filter-ref.bind="filter" changed.delegate="paginationChanged($event)" current-page.bind="currentPage" page-size.bind="pageSize"
+              total-items.bind="itemsCount" pagination-size.bind="5">
+            </aut-pagination>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-inline">
+              <div class="form-group pull-right">
+                <label for="pageSize">Page Size: </label>
+                <select value.bind="pageSize" id="pageSize" class="form-control">
+                <option model.bind="5">5</option>
+                <option selected model.bind="10">10</option>
+                <option model.bind="20">20</option>
+                <option model.bind="50">50</option>
+            </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </loader>
+    </div>
+  </div>
+</template>

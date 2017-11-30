@@ -1,0 +1,230 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active .modal.fade.stick-up .modal-dialog {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -ms-transform: translate(0);
+    }
+
+    .ux-dialog-open {
+      overflow: hidden;
+    }
+
+    .ux-dialog-open .modal {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    ux-dialog {
+      padding: 0!important;
+      box-shadow: none !important;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .datepicker.dropdown-menu {
+      z-index: 999999!important
+    }
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <div class="modal fade stick-up" role="dialog" aria-hidden="true" data-backdrop="static" style="display:block">
+        <div class="modal-dialog " style="width:95%">
+          <div class="modal-content">
+            <div class="modal-header clearfix text-left">
+              <button click.delegate="ctrl.cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <i class="pg-close fs-14"></i>
+              </button>
+              <h5>${gettenBaiViet}
+                <span class="semi-bold">Bài viết</span>
+
+              </h5>
+            </div>
+            <div class="modal-body">
+              <form role="form" class="desModalForm">
+                <div class="form-title">Thông tin bài viết</div>
+
+                <div class="row m-b-15">
+                  <div class="col-md-2  name m-t-5"> Tiêu đề </div>
+                  <div class="col-md-9 value form-group form-group-default required select2-small">
+                    <textarea type="text" class="form-control" name="" keyup.delegate="generateSlug()" value.bind="item.title & validate"> </textarea>
+
+                  </div>
+                  <div class="col-md-1">
+                    <span textcontent.bind="titleWordCount"></span> từ</div>
+                </div>
+
+                <div class="row m-b-15">
+                  <div class="col-md-2  name m-t-5"> Slug </div>
+                  <div class="col-md-10 value form-group form-group-default required select2-small">
+                    <input type="text" class="form-control" name="" value.bind="item.slug">
+
+                  </div>
+                </div>
+
+                <div class="row m-b-15">
+                  <div class="col-md-2  name m-t-5"> Chuyên mục : </div>
+                  <div class="col-md-4 value form-group form-group-default select2-small">
+                    <select class="form-control" select2="" value.bind="item.category">
+                      <option value="">--Chọn chuyên mục--</option>
+                      <option repeat.for="muc of dsChuyenMuc" model.bind="muc.chuyenMuc"> ${muc.displayName}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- <div class="row  m-b-15">
+                    <div class="col-md-2  name m-t-5"> Chủ đề : </div>
+                    <div class="col-md-4 value form-group form-group-default select2-small">
+                        <select class="form-control" select2="" value.bind="item.tags">
+                          <option value="">--Chọn Chủ đề--</option>
+                        </select>
+                    </div>
+                  </div> -->
+
+                <div class="row  m-b-15">
+                  <div class="col-md-2  name m-t-5">Chap (Sapo)</div>
+                  <div class="col-md-9 value form-group form-group-default">
+                    <textarea type="textarea" class="form-control" keyup.delegate="countChapWord()" value.bind="item['mo-ta-ngan']" style="height: 70px;"></textarea>
+                  </div>
+                  <div class="col-md-1">
+                    <span textcontent.bind="chapWordCount"></span> từ</div>
+                </div>
+
+                <div class="row m-b-15">
+                  <div class="col-md-2  name m-t-5">Loại bài viết</div>
+                  <div class="col-md-4 value form-group form-group-default select2-small">
+                    <select class="form-control" select2="" value.bind="item.loaiBaiViet">
+                      <option value="normal">Thông thường </option>
+                      <option value="video">Bài Viết Video </option>
+                      <option value="slideshow">Bài Viết Hình Ảnh</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1  name m-t-5">Xếp Loại </div>
+                  <div class="col-md-4 value  form-group form-group-default value required select2-small">
+                    <select class="form-control" select2="" value.bind="item.nhomBaiViet">
+                      <option value="bai-trung-binh"> Bài Viết Trung Bình </option>
+                      <option value="bai-dai">Bài Viết Dài</option>
+                      <option value="tin"> Tin (về trang gốc) </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row  m-b-15" show.bind="item.nhomBaiViet == 'tin'">
+                  <div class="col-md-2  name m-t-5">Link Nguồn Bài Viết </div>
+                  <div class="col-md-9 form-group form-group-default value required select2-small">
+                    <input type="text" placeholder="ví dụ: http://vnexpress/xxx" class="form-control" value.bind="item.nguonBaiVietUrl">
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <!-- <div class="row  m-b-15" show.bind="item.loaiBaiViet == 'video'">
+                    <div class="col-md-2  name m-t-5">Video </div>
+                    <div class="col-md-10">
+                        <input type="text" placeholder="link video" class="form-control" value.bind = "item.linkVideo">
+                    </div>
+                </div> -->
+
+                <div class="row  m-b-15">
+                  <div class="col-md-2  name m-t-5"> Ảnh đại điện </div>
+                  <div class="col-md-10 required" >
+                    <uploader value.bind="item['anh-dai-dien']" uri="${uploadLink}"></uploader>
+                  </div>
+
+                </div>
+
+
+                <div class="row  m-b-15">
+                  <div class="col-md-2  name m-t-5">Chú thích ảnh</div>
+                  <div class="col-md-9 value form-group form-group-default">
+                    <textarea type="text" class="form-control" name="" value.bind="item['ghi-chu-anh-dai-dien'] & validate"> </textarea>
+                  </div>
+                </div>
+
+                <div class="row m-b-15">
+                  <div class="col-md-2  name m-t-5"> Tác giả </div>
+                  <div class="col-md-4 value form-group form-group-default select2-small">
+                    <select class="form-control" select2="" value.bind="item.idTacGia">
+                      <option value="0">--Chọn tác giả--</option>
+                      <option repeat.for="tacGia of dsTacGia" model.bind="tacGia.id"> ${tacGia.tenTacGia}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1  name m-t-5"> Thời gian </div>
+                  <div class="col-md-4 value form-group form-group-default ">
+                    <input type="text" class="input-sm form-control" name="end" value.bind="item.date | dateFormat & validate" datepicker>
+                  </div>
+                </div>
+
+                <div class="row m-b-15">
+                  <textarea ckeditor="config.bind: ckconfig; id.bind: ckId" value.bind="item['__content__'] & validate"></textarea>
+                </div>
+
+                <div class="row m-b-15">
+                  <div class="col-md-2  name m-t-5"> Bài viết liên quan : </div>
+                  <div class="col-md-10 value form-group form-group-default">
+                    <select class="form-control" select2="" value.bind="item.baiVietLienQuan" multiple>
+                      <option value="">--Chọn bài viết--</option>
+                      <option repeat.for="baiviet of dsBaiVietDaDang" model.bind="baiviet.slug"> ${baiviet.title}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row m-b-15">
+                  <div class="col-md-2  name m-t-5">Có thể bạn quan tâm </div>
+                  <div class="col-md-10 value form-group form-group-default ">
+                    <select class="form-control" select2="" value.bind="item.baiVietCoTheQuanTam" multiple>
+                      <option value="">--Chọn bài viết--</option>
+                      <option repeat.for="baiviet of dsBaiVietDaDang" model.bind="baiviet.slug"> ${baiviet.title}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row  m-b-15" style="margin-top:20px">
+                  <div class="col-md-2  name m-t-5">SEO meta:</div>
+                  <div class="col-md-10 value form-group form-group-default">
+                    <input type="text" class="input-sm form-control" name="end" value.bind="item['seo-meta'] & validate">
+                  </div>
+                </div>
+
+                <div class="text-right m-t-20">
+                  <button click.delegate="ctrl.cancel()" type="button" class="btn btn-default m-t-5 pull-left" data-dismiss="modal">
+                    <i class="fa fa-close"></i> Đóng</button>
+                  <button show.bind="enableAction(3)" click.delegate="runAction(3)" class="btn btn-primary">
+                    <i class="fa fa-check"></i> Lưu thay đổi</button>
+                  <button show.bind="enableAction(4)" click.delegate="runAction(4)" type="button" class="btn btn-primary">
+                    <i class="fa fa-send"></i> Gửi Duyệt</button>
+                  <button show.bind="enableAction(5)" click.delegate="runAction(5)" type="button" class="btn btn-primary">
+                    <i class="fa fa-send"></i> 5</button>
+                  <button show.bind="enableAction(61)" click.delegate="runAction(61)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i> Trả Về</button>
+                  <button show.bind="enableAction(6)" click.delegate="runAction(6)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i> Duyệt và Gửi Đăng</button>
+                  <button show.bind="enableAction(7)" click.delegate="runAction(7)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i> Chấm Điểm</button>
+                  <button show.bind="enableAction(12)" click.delegate="runAction(12)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Gửi Đăng</button>
+                  <button show.bind="enableAction(13)" click.delegate="runAction(13)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Điều Chỉnh</button>
+                  <button show.bind="enableAction(141)" click.delegate="runAction(141)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Từ Chối Đăng</button>
+                  <button show.bind="enableAction(14)" click.delegate="runAction(14)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Đăng Bài</button>
+                  <button show.bind="enableAction(15)" click.delegate="runAction(15)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Lưu Điều Chỉnh</button>
+                  <button show.bind="enableAction(16)" click.delegate="runAction(16)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Gỡ Bài</button>
+                  <button show.bind="enableAction(17)" click.delegate="runAction(17)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Điều Chỉnh</button>
+                  <button show.bind="enableAction(18)" click.delegate="runAction(18)" type="button" class="btn btn-primary ">
+                    <i class="fa fa-send"></i>Trả Về</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

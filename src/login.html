@@ -1,0 +1,66 @@
+<template>
+<div class="login-wrapper ">
+  <!-- START Login Background Pic Wrapper-->
+  <div class="bg-pic">
+    <!-- START Background Pic-->
+    <img src="../assets/img/cms-bg.jpg" data-src="../assets/img/cms-bg.jpg" data-src-retina="../assets/img/cms-bg.jpg" alt="" class="lazy">
+    <!-- END Background Pic-->
+    <!-- START Background Caption-->
+    <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
+      <h2 class="semi-bold text-white">
+        Trang Quản Trị Báo Phương Đông</h2>
+      <p class="small">
+        <!-- Xuất thân từ Ban Năng lượng của Tổng công ty Công Nghệ Năng Lượng Dầu Khí Việt Nam, là một đơn vị hoạt động độc lập trong
+        lĩnh vực giám định thương mại. -->
+      </p>
+    </div>
+    <!-- END Background Caption-->
+  </div>
+  <!-- END Login Background Pic Wrapper-->
+  <!-- START Login Right Container-->
+  <div class="login-container bg-white">
+    <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+      <img src="../assets/logo.png" alt="cms-logo" data-src="../assets/logo.png" data-src-retina="../assets/logo.png" height="45">
+      <p class="p-t-35">Đăng nhập tài khoản của bạn</p>
+      <!-- START Login Form -->
+      <form id="form-login" class="p-t-15" role="form" action="index.html">
+        <!-- START Form Control-->
+        <div class="form-group form-group-default">
+          <label>Tên tài khoản</label>
+          <div class="controls required">
+              <input type="text" name="username" placeholder="User Name" class="form-control" value.bind="userCredential.username">
+          </div>
+        </div>
+        <!-- END Form Control-->
+        <!-- START Form Control-->
+        <div class="form-group form-group-default">
+          <label>Mật khẩu</label>
+          <div class="controls required">
+          <input type="password" class="form-control" name="password" placeholder="Password"  value.bind="userCredential.password">
+          </div>
+        </div>
+        <!-- START Form Control-->
+        <div class="row">
+          <div class="col-md-6 no-padding">
+            <div class="checkbox ">
+              <input type="checkbox" value="1" id="checkbox1">
+              <label for="checkbox1">Giữ cho tôi đăng nhập</label>
+            </div>
+          </div>
+          <div class="col-md-6 text-right">
+            <a href="#" class="text-info small">Cần giúp đỡ</a>
+          </div>
+        </div>
+        <!-- END Form Control-->
+        <a click.delegate="login()" class="btn btn-primary btn-cons m-t-10" type="submit" href="javascript:void();">Đăng nhập</a>
+      </form>
+
+
+
+
+    </div>
+  </div>
+  <!-- END Login Right Container-->
+</div>
+
+</template>

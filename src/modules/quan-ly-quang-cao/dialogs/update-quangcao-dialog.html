@@ -1,0 +1,122 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active .modal.fade.stick-up .modal-dialog {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -ms-transform: translate(0);
+    }
+
+    .ux-dialog-open {
+      overflow: hidden;
+    }
+
+    .ux-dialog-open .modal {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    ux-dialog {
+      padding: 0!important;
+      box-shadow: none !important;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .datepicker.dropdown-menu {
+      z-index: 999999!important
+    }
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <div class="modal fade stick-up" role="dialog" aria-hidden="true" data-backdrop="static" style="display:block">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header clearfix text-left">
+              <button click.delegate="ctrl.cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <i class="pg-close fs-14"></i>
+              </button>
+              <h5>${getTieuDe}
+                <span class="semi-bold">Quảng cáo</span>
+              </h5>
+              <br>
+            </div>
+            <div class="modal-body">
+              <form role="form" class="desModalForm">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row  m-b-15">
+                      <div class="col-md-4  name m-t-5">Tên chương trình : </div>
+                      <div class="col-md-8 value form-group form-group-default ">
+                        <input type="text" class="form-control" name="" value.bind="item.tenChuongTrinh & validate">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row  m-b-15">
+                      <div class="col-md-4  name m-t-5">Mô tả chương trình : </div>
+                      <div class="col-md-8 value form-group form-group-default ">
+                        <input type="text" class="form-control" name="" value.bind="item.motaChuongTrinh & validate">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row  m-b-15">
+                      <div class="col-md-4  name m-t-5">Ngày bắt đầu : </div>
+                      <div class="col-md-8 value   form-group form-group-default">
+                        <input type="text" class="input-sm form-control" name="start" value.bind="item.ngayBatDau | dateFormat & validate" datepicker>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row  m-b-15">
+                      <div class="col-md-4  name m-t-5">Ngày kết thúc : </div>
+                      <div class="col-md-8 value   form-group form-group-default">
+                        <input type="text" class="input-sm form-control" name="end" value.bind="item.ngayKetThuc | dateFormat & validate" datepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row  m-b-15">
+                      <div class="col-md-4  name m-t-5">Vị trí quảng cáo : </div>
+                      <select class="col-md-8 form-control" select2="" value.bind="item.viTriQuangCao " multiple>
+                          <option value=""> Chọn vị trí</option>
+                          <option value="home-position-1">Vị trí 1 Trang Chủ </option>
+                          <option value="home-position-2">Vị trí 2 Trang Chủ</option>
+                          <option value="category-position-1">Vị trí 1 Trang Chuyên Mục </option>
+                          <option value="category-position-2">Vị trí 2 Trang Chuyên Mục </option>
+                          <option value="details-position-1">Vị trí 1 Trang Chi Tiết </option>
+                          <option value="details-position-2">Vị trí 1 Trang Chi Tiết </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row  m-b-15">
+                  <div class="col-md-2  name m-t-5">scriptAds : </div>
+                  <div class="col-md-10 value   form-group form-group-default">
+                    <textarea type="textarea" class="form-control" value.bind="item.scriptAds & validate" style="height: 100px;"></textarea>
+                  </div>
+                </div>
+
+                <div class="text-right m-t-20">
+                  <button click.delegate="ctrl.cancel()" type="button" class="btn btn-danger m-t-5" data-dismiss="modal">
+                    <i class="fa fa-close"></i> Đóng</button>
+                  <button click.delegate="save()" type="submit" class="btn btn-primary  m-t-5">
+                    <i class="fa fa-check"></i> Lưu</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

@@ -1,0 +1,121 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active .modal.fade.stick-up .modal-dialog {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -ms-transform: translate(0);
+    }
+
+    .ux-dialog-open {
+      overflow: hidden;
+    }
+
+    .ux-dialog-open .modal {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    ux-dialog {
+      padding: 0!important;
+      box-shadow: none !important;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .datepicker.dropdown-menu{
+      z-index: 999999!important
+    }
+
+
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <div class="modal fade stick-up" role="dialog" aria-hidden="true" data-backdrop="static" style="display:block">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header clearfix text-left">
+              <button click.delegate="ctrl.cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i></button>
+              <h5>Duyệt và Gửi Đăng <span class="semi-bold"></span>
+              </h5>
+            </div>
+            <div class="modal-body">
+              <form role="form" class="desModalForm">
+                <!-- <div class="form-title">bài viết</div>
+                  <div class="row m-b-15">
+                    <div class="col-md-2  name m-t-5"> Tiêu đề : </div>
+                    <div class="col-md-10 value form-group form-group-default required select2-small">
+                      <textarea type="text" class="form-control" name="" value.bind="item.title " > </textarea>
+                    </div>
+                </div> -->
+                
+                
+                <div class="row m-b-15">
+                    <div class="col-md-2  name m-t-5"> Chọn Báo sẽ Đăng : </div>
+                    <div class="col-md-10 value form-group form-group-default required select2-small">
+                      <select class="form-control" select2="" value.bind="tenBao">
+                        <option value="">--Chọn Báo--</option>
+                        <option value="CAFENEWS">Cafe News</option>
+                        <!-- <option value="Báo Sức Khỏe">Báo Sức Khỏe</option> -->
+                      </select>
+                  </div>
+                </div>
+
+                <div class="row m-b-15">
+                    <div class="col-md-2  name m-t-5"> Chuyên mục ${item.tenBao} : </div>
+                    <div class="col-md-10 value form-group form-group-default required select2-small">
+                      <select class="form-control" select2="" value.bind="chuyenMucBao">
+                        <option value="">--Chọn Chuyên mục--</option>
+                        <option repeat.for="muc of dsChuyenMuc" model.bind="muc.chuyenMuc" value="${muc.chuyenMuc}">${muc.displayName}</option>
+                      </select>
+                  </div>
+                </div>
+                
+                <div class="row  m-b-15">
+                  <div class="col-md-2  name m-t-5">Ghi chú: </div>
+                  <div class="col-md-10 value">
+                    <textarea value="" type="text" class="form-control" name="" value.bind="ghiChu"> </textarea>
+                  </div>
+                </div>
+                <div class="text-right m-t-20">
+                  <button click.delegate="addToDsBaoDang()" type="button" class="btn btn-primary  m-t-5"><i class="fa fa-plus"></i> Thêm vào Danh Sách</button>
+                </div>
+
+                <div class="row  m-b-15">
+                  <div class="col-md-6  name m-t-5">Danh sách gửi Đăng</div>
+                </div>
+                <table class="table table-hover" aurelia-table="data.bind: dsBaoDang; display-data.bind: $displayData; ">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Tên Báo</th>
+                      <th>Chuyên mục</th>              
+                      <th>Ghi Chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr repeat.for="item of $displayData">
+                      <td>${$index+1}</td>
+                      <td>${item.websiteName}</td>
+                      <td>${GetTenChuyenMuc(item.category)}</td>
+                      <td>${item.notes}</td>
+                      <!-- <td>${item.tenTacGia}</td>               -->
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-right m-t-20">
+                    <button click.delegate="ctrl.cancel()" type="button" class="btn btn-danger m-t-5" data-dismiss="modal"><i class="fa fa-close"></i> Đóng</button>
+                    <button disabled.bind="false" click.delegate="save()" type="submit" class="btn btn-primary  m-t-5"><i class="fa fa-send"></i> Gửi Đăng</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>
