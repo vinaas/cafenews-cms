@@ -4,7 +4,7 @@ import { Filter } from "../../resources/base/filter-base";
 import { logger } from "./logger";
 import { PLATFORM } from "aurelia-pal";
 import { QuestionService } from "./services/questionService";
-import { Question } from "./models/questionModel";
+import { Question } from "./models/question";
 import { UpdateQuestion } from "./dialogs/updateQuestion";
 
 

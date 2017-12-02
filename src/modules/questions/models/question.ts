@@ -6,46 +6,26 @@ export class Question extends ModelBase {
 
   description: string;
   difficultLevel: number;
-  categories: [
-    {
-      title: string;
-      code: string
-    }
-  ];
-  isRandom: {
-    type: boolean
-  };
-  ref: {
-    type: string
-  };
-  questionType: {
-    type: string
-  };
-  listAnswers: {
-    type: [
-      {
-        id: {
-          type: number
-        };
-        content: {
-          type: string
-        };
-        isCorrect: {
-          type: boolean;
-          default: false
-        };
-        answerByUser: {
-          type: boolean;
-          default: false
-        }
-      }
-    ]
-  }
-
+  categories: Array<Category>;
+  isRandom: boolean;
+  ref: string ;
+  questionType:string;
+  listAnswers: Array<Answer>
+    
   constructor() {
     super()
-
+    
   }
+}
+
+export class Category {
+  title: string;
+  code: string
+  }
+  export class Answer {
+    id: number;
+    content: string;
+    isCorrect: boolean ;
 }
 
 export const newQuestionValidationRules = ValidationRules

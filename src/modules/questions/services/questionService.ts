@@ -10,7 +10,8 @@ import { HistoryServices, IHistoryService } from '../../history/services/history
 import { inject } from 'aurelia-framework';
 import { ActionHistory } from '../../history/models/actionhistory';
 import { logger } from '../logger';
-import { Question } from '../models/QuestionModel';
+import { Question } from '../models/question';
+
 
 
 export class QuestionService {
@@ -37,14 +38,14 @@ export class QuestionService {
   
 
   async GetCount(filter?: Filter): Promise<number> {
-    let rec = await axios.get('api/Questionzes/count', {
+    let rec = await axios.get('api/Questions/count', {
         params: { where: filter.where }
     })
     return rec.data.count
   }
   async GetAll(filter?: Filter): Promise<Question[]> {
     logger.info('filter', filter);
-      let recQuestions = await axios.get('api/Questionzes', {
+      let recQuestions = await axios.get('api/Questions', {
           params: { filter: filter }
       })
       let dsQuestion : Question[] = recQuestions.data;
@@ -60,7 +61,7 @@ export class QuestionService {
     item.lastModified = new Date();
     item.lastModified = this.authenSrv.userInfo.userId;
     
-    let rec = await axios.post("/api/Questionzes", item);
+    let rec = await axios.post("/api/Questions", item);
     return rec.data;
   }
 
@@ -80,12 +81,12 @@ export class QuestionService {
     //   item.modifiedDate = new Date();
     //   item.modifiedUserId = item.userId; //FIX sau
     // }
-    let rec = await axios.patch("/api/Questionzes/" + item.id, item);
+    let rec = await axios.patch("/api/Questions/" + item.id, item);
     return rec.data;
   }
 
   async Delete(id: number): Promise<any> {
-    let rec = await axios.delete("/api/Questionzes/" + id);
+    let rec = await axios.delete("/api/Questions/" + id);
     return rec.data;
   }
 

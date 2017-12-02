@@ -15,7 +15,7 @@ import { AuthenService } from '../../../authen/authenService';
 import { Filter } from '../../../resources/base/filter-base';
 import { logger } from '../logger';
 import { QuestionService } from '../services/questionService';
-import { Question, newQuestionValidationRules } from '../models/questionModel';
+import { Question, newQuestionValidationRules } from '../models/question';
 import { QuestionStatus, QuestionActions } from '../../../resources/base/questionStatus';
 
 
