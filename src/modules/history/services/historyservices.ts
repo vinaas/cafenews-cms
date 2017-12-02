@@ -2,7 +2,7 @@ import { logger } from './../../../authen/logger';
 import { BaseService } from './../../../resources/base/service-base';
 import axios from 'axios';
 import { Filter } from '../../../resources/base/filter-base';
-import {BaiVietStatus } from '../../../resources/base/status'
+import {QuizStatus } from '../../../resources/base/status'
 import {AppSetting} from '../../../appsettings/index'
 import { AuthenService } from '../../../authen/authenService';
 import { inject } from 'aurelia-framework';

@@ -36,12 +36,15 @@ export class AuthenService {
 
     let self = this;
     return new Promise((resolve, reject) => {
-      axios.post(AppSetting.apiEndPoint+"/api/MyUsers/login",userCredential).then(function(res) {
+      axios.post(AppSetting.apiEndPoint+"/api/ApplicationUsers/login",userCredential).then(function(res) {
         // setTimeout(() => {
           console.log("username" + userCredential.username );
           self.storage.set(STORAGE.tokenKey, res.data.id);
-          self.storage.set(STORAGE.userInfoKey, { userName: userCredential.username, userId : res.data.userId,
-                image: "https://dummyimage.com/60x60/000/ff008c", roles: ['dev'] })
+          self.storage.set(STORAGE.userInfoKey, { 
+            userName: userCredential.username, 
+            userId : res.data.userId,
+            roleId : res.data.roleId,
+            image: "https://dummyimage.com/60x60/000/ff008c", roles: [res.data.roleId] })
           self.setAxiosGlobal(res.data.id);
           resolve(true);
         // }, 100);

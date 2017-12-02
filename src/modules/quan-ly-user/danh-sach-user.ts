@@ -85,12 +85,12 @@ export class DanhSachUser implements ViewModelBase {
         this.dialogService.open({ viewModel: ChiTietUser, model: this.selectedItem }).whenClosed((result) => {
             if (!result.wasCancelled) {
                 this.selectedItem = result.output;
-                this.userSrv.Put(this.selectedItem).then(_ => this.showSuccess()).then(_ => this.runFilter()).catch(err => this.showError(err))
+                this.userSrv.Patch(this.selectedItem).then(_ => this.showSuccess()).then(_ => this.runFilter()).catch(err => this.showError(err))
             } else {
                 logger.info("Cancel");
             }
         });
-        this.userSrv.Put(this.selectedItem)
+        this.userSrv.Patch(this.selectedItem)
     }
 
     async runDelete(item) {

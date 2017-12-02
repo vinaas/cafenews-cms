@@ -4,7 +4,7 @@ export interface BaseService  {
     GetAll(filter?: Filter): Promise<Array<any>>
     GetCount(filter?: Filter): Promise<number>
     Post(item): Promise<any>
-    Put( item ): Promise<any>
+    Patch( item ): Promise<any>
     Delete(id: number): Promise<any>
     DeleteMany(Ids: Array<number>): Promise<any>
 }

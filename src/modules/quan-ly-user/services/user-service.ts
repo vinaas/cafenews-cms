@@ -9,40 +9,40 @@ export interface UserService extends BaseService {
 
 export class UserServiceImpl implements UserService {
   async GetCount(filter?: Filter): Promise<number> {
-    let rec = await axios.get("/api/MyUsers/count", {
+    let rec = await axios.get("/api/ApplicationUsers/count", {
       params: { filter: filter.where }
     });
     return rec.data.count;
   }
   async GetAll(filter?: Filter): Promise<any> {
-    let rec = await axios.get("/api/MyUsers", {
+    let rec = await axios.get("/api/ApplicationUsers", {
       params: { filter: filter }
     });
     return rec.data;
   }
   async Get(id: number): Promise<User> {
-    let recUser = await axios.get("api/MyUsers", {
+    let recUser = await axios.get("api/ApplicationUsers", {
       params: { id: id }
     });
     return recUser.data;
   }
 
   async Post(item: User): Promise<User> {
-    let rec = await axios.post("/api/MyUsers", item);
+    let rec = await axios.post("/api/ApplicationUsers", item);
     return rec.data;
   }
 
   async Patch(item: User): Promise<User> {
-    let rec = await axios.patch("/api/MyUsers/" + item.id, item);
+    let rec = await axios.patch("/api/ApplicationUsers/" + item.id, item);
     return rec.data;
   }
 
   async Put(item: User): Promise<User> {
-    let rec = await axios.put("/api/MyUsers/" + item.id, item);
+    let rec = await axios.put("/api/ApplicationUsers/" + item.id, item);
     return rec.data;
   }
   async Delete(id: number): Promise<any> {
-    let rec = await axios.delete("/api/MyUsers/" + id);
+    let rec = await axios.delete("/api/ApplicationUsers/" + id);
     return rec.data;
   }
 
@@ -59,7 +59,7 @@ export class UserServiceImpl implements UserService {
 //     return Promise.resolve(100) // so luong data tra ve - dung de hien thi phan trang
 //   }
 //   async GetAll(filter?: Filter): Promise<any> {
-//     let rec = await axios.get("/api/MyUsers", {
+//     let rec = await axios.get("/api/ApplicationUsers", {
 //       params: { filter: filter }
 //     });
 //     return rec.data;
@@ -97,7 +97,7 @@ export class UserServiceImpl implements UserService {
 //   }
 
 //   async Post(item: User): Promise<User> {
-//     let rec = await axios.post("/api/MyUsers", item);
+//     let rec = await axios.post("/api/ApplicationUsers", item);
 //     return rec.data;
 //   }
 

@@ -1,4 +1,6 @@
-export class QuizStatus {
+import { Action } from "./status";
+
+export class QuestionStatus {
     //Người viết bài
     static DRAFT_01: string = "DRAFT";
     static NEW_02: string = "NEW";
@@ -72,10 +74,10 @@ export class QuizStatus {
     }
 }
 
-export class ListAction {
+export class QuestionActions {
 
     static checkActionEnable(actionNum: number, trangThai: string): boolean {
-        if (trangThai === undefined) trangThai = QuizStatus.KHOITAO;
+        if (trangThai === undefined) trangThai = QuestionStatus.KHOITAO;
         let flag = false;
         this.GetList().forEach(element => {
             if (element.actionNum == actionNum) {
@@ -120,178 +122,167 @@ export class ListAction {
         //Yêu Cầu 
         List.push(new Action(
             0, [
-                QuizStatus.KHOITAO,
-                QuizStatus.DRAFT_01
+                QuestionStatus.KHOITAO,
+                QuestionStatus.DRAFT_01
             ],
-            QuizStatus.DRAFT_01,
+            QuestionStatus.DRAFT_01,
             'tạo nháp'
         ))
         List.push(new Action(
             1, [
-                QuizStatus.KHOITAO
+                QuestionStatus.KHOITAO
             ],
-            QuizStatus.NEW_02,
+            QuestionStatus.NEW_02,
             'đã tạo mới'
         ))
         List.push(new Action(
             2, [
-                QuizStatus.KHOITAO,
-                QuizStatus.DRAFT_01
+                QuestionStatus.KHOITAO,
+                QuestionStatus.DRAFT_01
             ],
-            QuizStatus.APPROVEREQUEST_04,
+            QuestionStatus.APPROVEREQUEST_04,
             'đã tạo và gửi điều chỉnh'
 
         ))
 
         List.push(new Action(
             3, [
-                QuizStatus.DRAFT_01,
-                QuizStatus.NEW_02,
-                QuizStatus.EDIT_03
+                QuestionStatus.DRAFT_01,
+                QuestionStatus.NEW_02,
+                QuestionStatus.EDIT_03
             ],
-            QuizStatus.EDIT_03,
+            QuestionStatus.EDIT_03,
             'đã lưu'
         ))
 
         List.push(new Action(
             4, [
-                QuizStatus.DRAFT_01,
-                QuizStatus.NEW_02,
-                QuizStatus.EDIT_03
+                QuestionStatus.DRAFT_01,
+                QuestionStatus.NEW_02,
+                QuestionStatus.EDIT_03
             ],
-            QuizStatus.APPROVEREQUEST_04,
+            QuestionStatus.APPROVEREQUEST_04,
             'đã Gửi Duyệt'
         ))
 
         List.push(new Action(
             5, [
-                QuizStatus.APPROVEREJECTED_05
+                QuestionStatus.APPROVEREJECTED_05
             ],
-            QuizStatus.EDIT_03,
+            QuestionStatus.EDIT_03,
             'đã Điều Chỉnh'
         ))
 
         List.push(new Action(
             61, [
-                QuizStatus.APPROVEREQUEST_04
+                QuestionStatus.APPROVEREQUEST_04
             ],
-            QuizStatus.APPROVEREJECTED_05,
+            QuestionStatus.APPROVEREJECTED_05,
             'đã Từ Chối Duyệt'
         ))
 
         List.push(new Action(
             6, [
-                QuizStatus.APPROVEREQUEST_04
+                QuestionStatus.APPROVEREQUEST_04
             ],
-            QuizStatus.MULTIAPPROVED_06,
+            QuestionStatus.MULTIAPPROVED_06,
             'đã Duyệt'
         ))
 
         List.push(new Action(
             7, [
-                QuizStatus.MULTIAPPROVED_06,
+                QuestionStatus.MULTIAPPROVED_06,
             ],
-            QuizStatus.MULTIAPPROVED_06,
+            QuestionStatus.MULTIAPPROVED_06,
             'đã Chấm Điểm'
         ))
 
         List.push(new Action(
             11, [
-                QuizStatus.KHOITAO,
-                QuizStatus.MULTIAPPROVED_06
+                QuestionStatus.KHOITAO,
+                QuestionStatus.MULTIAPPROVED_06
             ],
-            QuizStatus.APPROVED_011,
+            QuestionStatus.APPROVED_011,
             'đã Duyệt cho Báo '
         ))
 
         List.push(new Action(
             112, [
-                QuizStatus.KHOITAO,
-                QuizStatus.MULTIAPPROVED_06,
+                QuestionStatus.KHOITAO,
+                QuestionStatus.MULTIAPPROVED_06,
             ],
-            QuizStatus.PUBLISHREQUEST_012,
+            QuestionStatus.PUBLISHREQUEST_012,
             'đã Duyệt và Gửi Đăng'
         ))
 
         List.push(new Action(
             12, [
-                QuizStatus.APPROVED_011,
-                QuizStatus.DIEUCHINHGUIDANG_013,
+                QuestionStatus.APPROVED_011,
+                QuestionStatus.DIEUCHINHGUIDANG_013,
             ],
-            QuizStatus.PUBLISHREQUEST_012,
+            QuestionStatus.PUBLISHREQUEST_012,
             'đã Gửi Đăng cho Báo '
         ))
 
         List.push(new Action(
             13, [
-                QuizStatus.PUBLISHREJECTED_0141
+                QuestionStatus.PUBLISHREJECTED_0141
             ],
-            QuizStatus.DIEUCHINHGUIDANG_013,
+            QuestionStatus.DIEUCHINHGUIDANG_013,
             'đã Điều Chỉnh'
         ))
 
         List.push(new Action(
             141, [
-                QuizStatus.PUBLISHREQUEST_012
+                QuestionStatus.PUBLISHREQUEST_012
             ],
-            QuizStatus.PUBLISHREJECTED_0141,
+            QuestionStatus.PUBLISHREJECTED_0141,
             'đã Từ Chối Đăng '
         ))
 
         List.push(new Action(
             14, [
-                QuizStatus.PUBLISHREQUEST_012,
-                QuizStatus.UNPUBLISH_016,
-                QuizStatus.EDITATPUBLISHED_017
+                QuestionStatus.PUBLISHREQUEST_012,
+                QuestionStatus.UNPUBLISH_016,
+                QuestionStatus.EDITATPUBLISHED_017
             ],
-            QuizStatus.PUBLISHED_014,
+            QuestionStatus.PUBLISHED_014,
             'đã Đăng cho Báo '
         ))
 
         List.push(new Action(
             15, [
-                QuizStatus.PUBLISHED_014
+                QuestionStatus.PUBLISHED_014
             ],
-            QuizStatus.EDITATPUBLISHED_017,
+            QuestionStatus.EDITATPUBLISHED_017,
             'đã Điều Chỉnh '
         ))
 
         List.push(new Action(
             16, [
-                QuizStatus.PUBLISHED_014
+                QuestionStatus.PUBLISHED_014
             ],
-            QuizStatus.UNPUBLISH_016,
+            QuestionStatus.UNPUBLISH_016,
             'đã Gỡ Đăng '
         ))
 
         List.push(new Action(
             17, [
-                QuizStatus.UNPUBLISH_016
+                QuestionStatus.UNPUBLISH_016
             ],
-            QuizStatus.EDITATPUBLISHED_017,
+            QuestionStatus.EDITATPUBLISHED_017,
             'đã Điều Chỉnh '
         ))
 
         List.push(new Action(
             18, [
-                QuizStatus.UNPUBLISH_016
+                QuestionStatus.UNPUBLISH_016
             ],
-            QuizStatus.PUBLISHREJECTED_0141,
+            QuestionStatus.PUBLISHREJECTED_0141,
             'đã Trả Về '
         ))
 
         return List;
     }
 }
-export class Action {
-    actionNum: number;
-    listEnableStatus: string[];
-    afterStatus: string;
-    historyMessage: string;
-    constructor(num: number, statuses: string[], afterStatus: string = '', message: string = '') {
-        this.actionNum = num;
-        this.listEnableStatus = statuses;
-        this.afterStatus = afterStatus;
-        this.historyMessage = message;
-    }
-}
+

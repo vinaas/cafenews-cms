@@ -1,0 +1,122 @@
+<template>
+    <style>
+      ux-dialog-overlay.active {
+        background-color: black;
+        opacity: .5;
+      }
+  
+      ux-dialog-container.active .modal.fade.stick-up .modal-dialog {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -ms-transform: translate(0);
+      }
+  
+      .ux-dialog-open {
+        overflow: hidden;
+      }
+  
+      .ux-dialog-open .modal {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+  
+      ux-dialog {
+        padding: 0!important;
+        box-shadow: none !important;
+        background: transparent !important;
+        border: none !important;
+      }
+  
+      .datepicker.dropdown-menu {
+        z-index: 999999!important
+      }
+  
+    </style>
+    <ux-dialog>
+      <ux-dialog-body>
+        <div class="modal fade stick-up" role="dialog" aria-hidden="true" data-backdrop="static" style="display:block">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header clearfix text-left">
+                <button click.delegate="ctrl.cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <i class="pg-close fs-14"></i>
+                </button>
+                <h5>${getTieuDe}
+                  <span class="semi-bold">Kì Thi </span>
+                </h5>
+                <br>
+              </div>
+              <div class="modal-body">
+                <form role="form" class="desModalForm">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="row  m-b-15">
+                        <div class="col-md-4  name m-t-5">Tên Kì Thi : </div>
+                        <div class="col-md-8 value form-group form-group-default required select2-small">
+                          <input type="text" class="form-control" name="" value.bind="item.quizInfo.quizName & validate">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="row  m-b-15">
+                        <div class="col-md-4  name m-t-5">Thời Gian Làm Bài : </div>
+                        <div class="col-md-4 value form-group form-group-default  select2-small">
+                          <input type="number" class="form-control" name="" value.bind="item.totalTime & validate">
+                        </div>
+                        <div class="col-md-4  name m-t-5">Phút </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="row  m-b-15">
+                        <div class="col-md-4  name m-t-5">Tổng Số Câu hỏi: </div>
+                        <div class="col-md-8 value form-group form-group-default required select2-small">
+                          <input type="number" class="form-control" name="" value.bind="item.totalQuestions & validate">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="row  m-b-15">
+                        <div class="col-md-4  name m-t-5">Câu hỏi cho bài thi : </div>
+                        <div class="col-md-8 value form-group form-group-default select2-small">
+                          <input type="number" class="form-control" name="" value.bind="item.numberOfQuestions & validate">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="row">
+                      <div class="col-md-4  name m-t-5">Thời Gian : </div>
+                      <div class="form-group long">
+                          <div class="input-daterange input-group" daterangepickter >
+                            <span class="input-group-addon">Bắt Đầu Thi</span>
+                            <input type="text" class="input-sm form-control" name="item.startDate" value.bind="startDate" datepicker>
+                            <span class="input-group-addon">Kết Thúc Thi</span>
+                            <input type="text" class="input-sm form-control" name="item.endDate" value.bind="endDate" datepicker>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="form-group long">
+                          <label>Trạng Thái</label>
+                          <select class="form-control" select2="" value.bind="item.quizStatus">
+                            <option repeat.for="muc of dsTrangThai" model.bind="muc" value="${muc.chuyenMuc}">${muc.displayName}</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="text-right m-t-20">
+                    <button click.delegate="ctrl.cancel()" type="button" class="btn btn-danger m-t-5" data-dismiss="modal">
+                      <i class="fa fa-close"></i> Đóng</button>
+                    <button click.delegate="runAction(5)" type="submit" class="btn btn-primary  m-t-5">
+                      <i class="fa fa-check"></i> Lưu</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      </ux-dialog-body>
+    </ux-dialog>
+  </template>

@@ -1,7 +1,5 @@
 import { ValidationRules } from 'aurelia-validation';
-import { TacGia } from '../../quan-ly-tac-gia/models/tac-gia';
 
-import { ChuyenMucBaiViet } from '../../chuyen-muc-bai-viet/models/chuyen-muc-bai-viet';
 export class ActionHistory {
         "actionId": string 
         "userId": string 
@@ -22,32 +20,5 @@ export class ActionHistory {
         this.notes = note; 
         this.date = new Date();
     }
-    // "properties": {
-    //     "actionId": {
-    //       "type": "string",
-    //       "required": true
-    //     },
-    //     "userId": {
-    //       "type": "string",
-    //       "required": true
-    //     },
-    //     "objectId" : {
-    //       "type": "string",
-    //       "required": true
-    //     },
-    //     "objectType" : {
-    //       "type": "string",
-    //       "required": true
-    //     },
-    //     "date": {
-    //       "type": "date",
-    //       "required": true
-    //     },
-    //     "message": {
-    //       "type": "string"
-    //     },
-    //     "notes": {
-    //       "type": "string"
-    //     }
-    //   }
+ 
 }
