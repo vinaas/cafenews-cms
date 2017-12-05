@@ -1,6 +1,6 @@
 import { Action } from "./status";
 
-export class QuestionStatus {
+export class UserQuizStatus {
     //Người viết bài
     static DRAFT_01: string = "DRAFT";
     static NEW_02: string = "NEW";
@@ -74,10 +74,10 @@ export class QuestionStatus {
     }
 }
 
-export class QuestionActions {
+export class UserQuizActions {
 
     static checkActionEnable(actionNum: number, trangThai: string): boolean {
-        if (trangThai === undefined) trangThai = QuestionStatus.KHOITAO;
+        if (trangThai === undefined) trangThai = UserQuizStatus.KHOITAO;
         let flag = false;
         this.GetList().forEach(element => {
             if (element.actionNum == actionNum) {
@@ -122,163 +122,163 @@ export class QuestionActions {
         //Yêu Cầu 
         List.push(new Action(
             0, [
-                QuestionStatus.KHOITAO,
-                QuestionStatus.DRAFT_01
+                UserQuizStatus.KHOITAO,
+                UserQuizStatus.DRAFT_01
             ],
-            QuestionStatus.DRAFT_01,
+            UserQuizStatus.DRAFT_01,
             'tạo nháp'
         ))
         List.push(new Action(
             1, [
-                QuestionStatus.KHOITAO
+                UserQuizStatus.KHOITAO
             ],
-            QuestionStatus.NEW_02,
+            UserQuizStatus.NEW_02,
             'đã tạo mới'
         ))
         List.push(new Action(
             2, [
-                QuestionStatus.KHOITAO,
-                QuestionStatus.DRAFT_01
+                UserQuizStatus.KHOITAO,
+                UserQuizStatus.DRAFT_01
             ],
-            QuestionStatus.APPROVEREQUEST_04,
+            UserQuizStatus.APPROVEREQUEST_04,
             'đã tạo và gửi điều chỉnh'
 
         ))
 
         List.push(new Action(
             3, [
-                QuestionStatus.DRAFT_01,
-                QuestionStatus.NEW_02,
-                QuestionStatus.EDIT_03
+                UserQuizStatus.DRAFT_01,
+                UserQuizStatus.NEW_02,
+                UserQuizStatus.EDIT_03
             ],
-            QuestionStatus.EDIT_03,
+            UserQuizStatus.EDIT_03,
             'đã lưu'
         ))
 
         List.push(new Action(
             4, [
-                QuestionStatus.DRAFT_01,
-                QuestionStatus.NEW_02,
-                QuestionStatus.EDIT_03
+                UserQuizStatus.DRAFT_01,
+                UserQuizStatus.NEW_02,
+                UserQuizStatus.EDIT_03
             ],
-            QuestionStatus.APPROVEREQUEST_04,
+            UserQuizStatus.APPROVEREQUEST_04,
             'đã Gửi Duyệt'
         ))
 
         List.push(new Action(
             5, [
-                QuestionStatus.APPROVEREJECTED_05
+                UserQuizStatus.APPROVEREJECTED_05
             ],
-            QuestionStatus.EDIT_03,
+            UserQuizStatus.EDIT_03,
             'đã Điều Chỉnh'
         ))
 
         List.push(new Action(
             61, [
-                QuestionStatus.APPROVEREQUEST_04
+                UserQuizStatus.APPROVEREQUEST_04
             ],
-            QuestionStatus.APPROVEREJECTED_05,
+            UserQuizStatus.APPROVEREJECTED_05,
             'đã Từ Chối Duyệt'
         ))
 
         List.push(new Action(
             6, [
-                QuestionStatus.APPROVEREQUEST_04
+                UserQuizStatus.APPROVEREQUEST_04
             ],
-            QuestionStatus.MULTIAPPROVED_06,
+            UserQuizStatus.MULTIAPPROVED_06,
             'đã Duyệt'
         ))
 
         List.push(new Action(
             7, [
-                QuestionStatus.MULTIAPPROVED_06,
+                UserQuizStatus.MULTIAPPROVED_06,
             ],
-            QuestionStatus.MULTIAPPROVED_06,
+            UserQuizStatus.MULTIAPPROVED_06,
             'đã Chấm Điểm'
         ))
 
         List.push(new Action(
             11, [
-                QuestionStatus.KHOITAO,
-                QuestionStatus.MULTIAPPROVED_06
+                UserQuizStatus.KHOITAO,
+                UserQuizStatus.MULTIAPPROVED_06
             ],
-            QuestionStatus.APPROVED_011,
+            UserQuizStatus.APPROVED_011,
             'đã Duyệt cho Báo '
         ))
 
         List.push(new Action(
             112, [
-                QuestionStatus.KHOITAO,
-                QuestionStatus.MULTIAPPROVED_06,
+                UserQuizStatus.KHOITAO,
+                UserQuizStatus.MULTIAPPROVED_06,
             ],
-            QuestionStatus.PUBLISHREQUEST_012,
+            UserQuizStatus.PUBLISHREQUEST_012,
             'đã Duyệt và Gửi Đăng'
         ))
 
         List.push(new Action(
             12, [
-                QuestionStatus.APPROVED_011,
-                QuestionStatus.DIEUCHINHGUIDANG_013,
+                UserQuizStatus.APPROVED_011,
+                UserQuizStatus.DIEUCHINHGUIDANG_013,
             ],
-            QuestionStatus.PUBLISHREQUEST_012,
+            UserQuizStatus.PUBLISHREQUEST_012,
             'đã Gửi Đăng cho Báo '
         ))
 
         List.push(new Action(
             13, [
-                QuestionStatus.PUBLISHREJECTED_0141
+                UserQuizStatus.PUBLISHREJECTED_0141
             ],
-            QuestionStatus.DIEUCHINHGUIDANG_013,
+            UserQuizStatus.DIEUCHINHGUIDANG_013,
             'đã Điều Chỉnh'
         ))
 
         List.push(new Action(
             141, [
-                QuestionStatus.PUBLISHREQUEST_012
+                UserQuizStatus.PUBLISHREQUEST_012
             ],
-            QuestionStatus.PUBLISHREJECTED_0141,
+            UserQuizStatus.PUBLISHREJECTED_0141,
             'đã Từ Chối Đăng '
         ))
 
         List.push(new Action(
             14, [
-                QuestionStatus.PUBLISHREQUEST_012,
-                QuestionStatus.UNPUBLISH_016,
-                QuestionStatus.EDITATPUBLISHED_017
+                UserQuizStatus.PUBLISHREQUEST_012,
+                UserQuizStatus.UNPUBLISH_016,
+                UserQuizStatus.EDITATPUBLISHED_017
             ],
-            QuestionStatus.PUBLISHED_014,
+            UserQuizStatus.PUBLISHED_014,
             'đã Đăng cho Báo '
         ))
 
         List.push(new Action(
             15, [
-                QuestionStatus.PUBLISHED_014
+                UserQuizStatus.PUBLISHED_014
             ],
-            QuestionStatus.EDITATPUBLISHED_017,
+            UserQuizStatus.EDITATPUBLISHED_017,
             'đã Điều Chỉnh '
         ))
 
         List.push(new Action(
             16, [
-                QuestionStatus.PUBLISHED_014
+                UserQuizStatus.PUBLISHED_014
             ],
-            QuestionStatus.UNPUBLISH_016,
+            UserQuizStatus.UNPUBLISH_016,
             'đã Gỡ Đăng '
         ))
 
         List.push(new Action(
             17, [
-                QuestionStatus.UNPUBLISH_016
+                UserQuizStatus.UNPUBLISH_016
             ],
-            QuestionStatus.EDITATPUBLISHED_017,
+            UserQuizStatus.EDITATPUBLISHED_017,
             'đã Điều Chỉnh '
         ))
 
         List.push(new Action(
             18, [
-                QuestionStatus.UNPUBLISH_016
+                UserQuizStatus.UNPUBLISH_016
             ],
-            QuestionStatus.PUBLISHREJECTED_0141,
+            UserQuizStatus.PUBLISHREJECTED_0141,
             'đã Trả Về '
         ))
 

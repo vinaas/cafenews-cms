@@ -1,3 +1,15 @@
+
+export class ObjectStatus {
+    static ACTIVE: string = "ACTIVE";
+    static INACTIVE : string = "DELETED";
+    static PROGRESS : string = "PROGRESS";
+    static SUCCESS : string = "SUCCESS";
+
+    static ObjectStatusList(){
+        return [this.ACTIVE, this.INACTIVE, this.PROGRESS, this.SUCCESS];
+    } 
+
+}
 export class QuizStatus {
     //Người viết bài
     static DRAFT_01: string = "DRAFT";
@@ -28,13 +40,6 @@ export class QuizStatus {
     static KHOITAO: string = "KHOITAO";
 
     constructor() {
-
-        // this.APPROVEREQUEST = "APPROVEREQUEST";
-        // this.APPROVED = "APPROVED";
-        // this.PUBLISHED = "PUBLISHED";
-        // this.UNPUBLISH = "UNPUBLISH";
-        // this.APPROVEREJECTED = "ApproveRejected";
-        // this.PUBLISHREJECTED = "PublishReject";
     }
 
     static GetStatusName(status: string): string {
@@ -153,133 +158,7 @@ export class ListAction {
             'đã lưu'
         ))
 
-        List.push(new Action(
-            4, [
-                QuizStatus.DRAFT_01,
-                QuizStatus.NEW_02,
-                QuizStatus.EDIT_03
-            ],
-            QuizStatus.APPROVEREQUEST_04,
-            'đã Gửi Duyệt'
-        ))
-
-        List.push(new Action(
-            5, [
-                QuizStatus.APPROVEREJECTED_05
-            ],
-            QuizStatus.EDIT_03,
-            'đã Điều Chỉnh'
-        ))
-
-        List.push(new Action(
-            61, [
-                QuizStatus.APPROVEREQUEST_04
-            ],
-            QuizStatus.APPROVEREJECTED_05,
-            'đã Từ Chối Duyệt'
-        ))
-
-        List.push(new Action(
-            6, [
-                QuizStatus.APPROVEREQUEST_04
-            ],
-            QuizStatus.MULTIAPPROVED_06,
-            'đã Duyệt'
-        ))
-
-        List.push(new Action(
-            7, [
-                QuizStatus.MULTIAPPROVED_06,
-            ],
-            QuizStatus.MULTIAPPROVED_06,
-            'đã Chấm Điểm'
-        ))
-
-        List.push(new Action(
-            11, [
-                QuizStatus.KHOITAO,
-                QuizStatus.MULTIAPPROVED_06
-            ],
-            QuizStatus.APPROVED_011,
-            'đã Duyệt cho Báo '
-        ))
-
-        List.push(new Action(
-            112, [
-                QuizStatus.KHOITAO,
-                QuizStatus.MULTIAPPROVED_06,
-            ],
-            QuizStatus.PUBLISHREQUEST_012,
-            'đã Duyệt và Gửi Đăng'
-        ))
-
-        List.push(new Action(
-            12, [
-                QuizStatus.APPROVED_011,
-                QuizStatus.DIEUCHINHGUIDANG_013,
-            ],
-            QuizStatus.PUBLISHREQUEST_012,
-            'đã Gửi Đăng cho Báo '
-        ))
-
-        List.push(new Action(
-            13, [
-                QuizStatus.PUBLISHREJECTED_0141
-            ],
-            QuizStatus.DIEUCHINHGUIDANG_013,
-            'đã Điều Chỉnh'
-        ))
-
-        List.push(new Action(
-            141, [
-                QuizStatus.PUBLISHREQUEST_012
-            ],
-            QuizStatus.PUBLISHREJECTED_0141,
-            'đã Từ Chối Đăng '
-        ))
-
-        List.push(new Action(
-            14, [
-                QuizStatus.PUBLISHREQUEST_012,
-                QuizStatus.UNPUBLISH_016,
-                QuizStatus.EDITATPUBLISHED_017
-            ],
-            QuizStatus.PUBLISHED_014,
-            'đã Đăng cho Báo '
-        ))
-
-        List.push(new Action(
-            15, [
-                QuizStatus.PUBLISHED_014
-            ],
-            QuizStatus.EDITATPUBLISHED_017,
-            'đã Điều Chỉnh '
-        ))
-
-        List.push(new Action(
-            16, [
-                QuizStatus.PUBLISHED_014
-            ],
-            QuizStatus.UNPUBLISH_016,
-            'đã Gỡ Đăng '
-        ))
-
-        List.push(new Action(
-            17, [
-                QuizStatus.UNPUBLISH_016
-            ],
-            QuizStatus.EDITATPUBLISHED_017,
-            'đã Điều Chỉnh '
-        ))
-
-        List.push(new Action(
-            18, [
-                QuizStatus.UNPUBLISH_016
-            ],
-            QuizStatus.PUBLISHREJECTED_0141,
-            'đã Trả Về '
-        ))
-
+      
         return List;
     }
 }

@@ -11,7 +11,8 @@ export class User {
   maNhanVien: string;
   diaChi: string;
   ngaySinh: Date;
-
+  roleId : number; 
+  
   constructor() {
   }
 }

@@ -18,7 +18,7 @@ export class App {
   }
 
   enableAdminNav() : boolean {
-    if (this.authenSrv.userInfo.userName === undefined)
+    if (this.authenSrv.userInfo === undefined)
       return false;
     let adminList : string[] = ['admin', 'admin01', 'admin02']
     if (adminList.includes(this.authenSrv.userInfo.userName) ){

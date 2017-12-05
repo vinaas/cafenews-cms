@@ -14,18 +14,18 @@ import { Helper } from './../../../resources/base/helper';
 import { AuthenService } from '../../../authen/authenService';
 import { Filter } from '../../../resources/base/filter-base';
 import { logger } from '../logger';
-import { QuestionService } from '../services/questionService';
-import { Question, newQuestionValidationRules } from '../models/question';
-import { QuestionStatus, QuestionActions } from '../../../resources/base/questionStatus';
+import { UserQuizService } from '../services/UserQuizService';
+import { UserQuiz, newUserQuizValidationRules } from '../models/UserQuiz';
+import { UserQuizStatus, UserQuizActions } from '../../../resources/base/UserQuizStatus';
 
 
 
 
-@inject(AuthenService, DialogController, ValidationControllerFactory, QuestionService, DialogService)
+@inject(AuthenService, DialogController, ValidationControllerFactory, UserQuizService, DialogService)
 
-export class UpdateQuestion {
+export class UpdateUserQuiz {
   validationcontroller: ValidationController;
-  constructor(private authenSrv: AuthenService, private ctrl: DialogController, private controllerFactory, private QuestionSrv: QuestionService,
+  constructor(private authenSrv: AuthenService, private ctrl: DialogController, private controllerFactory, private UserQuizSrv: UserQuizService,
     private dialogService: DialogService) {
     this.validationcontroller = controllerFactory.createForCurrentScope();
     this.validationcontroller.addRenderer(new BootstrapFormRenderer());
@@ -36,14 +36,14 @@ export class UpdateQuestion {
     return "Thêm mới";
   }
 
-  item: Question;
-  itemQuestion: Question[];
+  item: UserQuiz;
+  itemUserQuiz: UserQuiz[];
   daDangFilter: Filter = {
     order: "date DESC", where: {
-      "trangThai": QuestionStatus.PUBLISHED_014
+      "trangThai": UserQuizStatus.PUBLISHED_014
     }
   };
-  dsQuestionDaDang: Question[];
+  dsUserQuizDaDang: UserQuiz[];
 
   titleWordCount: number;
   chapWordCount: number;
@@ -58,31 +58,31 @@ export class UpdateQuestion {
   }
   ckEditorValue = 'Nội dung câu hỏi';
 
-  async activate(dto: Question) {
+  async activate(dto: UserQuiz) {
     this.item = dto;
     let sefl = this;
     await Promise.all([
     ]);
 
-    this.QuestionSrv.GetAll(this.daDangFilter).then(rec => this.dsQuestionDaDang = rec);
+    this.UserQuizSrv.GetAll(this.daDangFilter).then(rec => this.dsUserQuizDaDang = rec);
 
-    logger.info('Question dto', dto);
+    logger.info('UserQuiz dto', dto);
     
     
   }
 
   enableAction(actionNum: number): boolean {
-    return QuestionActions.checkActionEnable(actionNum, this.item.status);
+    return UserQuizActions.checkActionEnable(actionNum, this.item.status);
   }
 
   async runAction(actionCode: number) {
     let seft = this;
     logger.info('runAction() ', this.item);
 
-    this.validationcontroller.validate({ object: this.item, rules: newQuestionValidationRules }).then((result) => {
+    this.validationcontroller.validate({ object: this.item, rules: newUserQuizValidationRules }).then((result) => {
       if (result.valid) {
         console.log(result);
-        this.QuestionSrv.DoAction(actionCode, this.item).then(_ => {
+        this.UserQuizSrv.DoAction(actionCode, this.item).then(_ => {
           this.showSuccess()
           this.ctrl.ok(this.item);
         }).catch();

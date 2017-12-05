@@ -25,6 +25,7 @@
               <th>STT</th>
               <th>Username</th>
               <th>Email</th>
+              <th>Vai Trò</th>
               <th>Chi tiết</th>
               <th>Hành động </th>
             </tr>
@@ -34,6 +35,7 @@
               <td>${$index+1}</td>
               <td>${item.username}</td>
               <td>${item.email}</td> 
+              <td>${item.roleId | roleName}</td> 
               <!-- <td>${item.ngayTao | dateTimeFormat}</td> -->
               <td><a href="javascript:void(0);" click.delegate="runView(item)" class="text-primary"><i class="fa fa-user-circle-o"></i> Xem</a></td>
               <td class="v-align-middle">

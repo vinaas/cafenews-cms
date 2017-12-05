@@ -18,5 +18,6 @@ export function configure(config: FrameworkConfiguration) {
         PLATFORM.moduleName('./valueconverter/baivietname'),
         PLATFORM.moduleName('./uploader/uploader'),
         PLATFORM.moduleName('./valueconverter/slugformat'),
+        PLATFORM.moduleName('./valueconverter/rolename'),
     ])
 }

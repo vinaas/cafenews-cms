@@ -54,7 +54,7 @@ export class DanhSachQuiz {
       this.QuizSrv.GetCount(this.filter).then(rec => this.itemsCount = rec),
 
     ]))
-    logger.info("Quizs" + this.items);
+    logger.info("Quiz Count" + JSON.stringify(this.itemsCount));
   }
 
   enableAction(status:string = '') : boolean {
@@ -68,7 +68,20 @@ export class DanhSachQuiz {
       if (!result.wasCancelled) {
         this.selectedItem = result.output;
         logger.info("item ", this.selectedItem) 
-        this.QuizSrv.Patch(this.selectedItem).then(_ => this.showSuccess()).then(_ => this.runFilter()).catch(err => this.showError(err))
+        // this.QuizSrv.Patch(this.selectedItem).then(_ => this.showSuccess()).then(_ => this.runFilter()).catch(err => this.showError(err))
+      } else {
+        logger.info("Cancel");
+      }
+    });
+  }
+  runCreate() {
+    this.selectedItem = new Quiz();
+    logger.info("runUpdate()")
+    this.dialogService.open({ viewModel: UpdateQuiz, model: this.selectedItem }).whenClosed((result) => {
+      if (!result.wasCancelled) {
+        this.selectedItem = result.output;
+        logger.info("item ", this.selectedItem) 
+        // this.QuizSrv.Patch(this.selectedItem).then(_ => this.showSuccess()).then(_ => this.runFilter()).catch(err => this.showError(err))
       } else {
         logger.info("Cancel");
       }

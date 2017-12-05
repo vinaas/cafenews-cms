@@ -35,7 +35,7 @@
     <ux-dialog>
       <ux-dialog-body>
         <div class="modal fade stick-up" role="dialog" aria-hidden="true" data-backdrop="static" style="display:block">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-lg" style="width:90%">
             <div class="modal-content">
               <div class="modal-header clearfix text-left">
                 <button click.delegate="ctrl.cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -85,32 +85,64 @@
                       </div>
                     </div>
                   </div>
-                  
-                  
                   <div class="row">
-                      <div class="col-md-4  name m-t-5">Thời Gian : </div>
-                      <div class="form-group long">
-                          <div class="input-daterange input-group" daterangepickter >
-                            <span class="input-group-addon">Bắt Đầu Thi</span>
-                            <input type="text" class="input-sm form-control" name="item.startDate" value.bind="startDate" datepicker>
-                            <span class="input-group-addon">Kết Thúc Thi</span>
-                            <input type="text" class="input-sm form-control" name="item.endDate" value.bind="endDate" datepicker>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      <div class="row  m-b-15">
+                          <div class="col-md-4  name m-t-5">Trạng Thái : </div>
+                          <div class="col-md-8 value form-group form-group-default">
+                              <select tabindex="5" class="form-control input-sm" select2="" value.bind="item.quizStatus">
+                                  <option value="0"> -- Chọn --</option>
+                                  <option repeat.for="item of ListQuizStatus" model.bind="item">${item}</option>
+                              </select>
                           </div>
                       </div>
-                  </div>
-                  <div class="row">
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                      
+                      <div class="col-md-3  name m-t-5">Thời Gian : </div>
                       <div class="form-group long">
-                          <label>Trạng Thái</label>
-                          <select class="form-control" select2="" value.bind="item.quizStatus">
-                            <option repeat.for="muc of dsTrangThai" model.bind="muc" value="${muc.chuyenMuc}">${muc.displayName}</option>
-                          </select>
+                          <div class="input-daterange input-group" daterangepickter >
+                            <span class="input-group-addon">Từ</span>
+                            <input type="text" class="input-sm form-control" name="startTime" value.bind="item.startTime" datepicker>
+                            <span class="input-group-addon">Đêns</span>
+                            <input type="text" class="input-sm form-control" name="endTime" value.bind="item.endTime" datepicker>
+                          </div>
                       </div>
+                    </div>
                   </div>
+                  <h5>Danh Sách Câu Hỏi <span class="semi-bold"> Trong Kì Thi</span>
+                    <button click.delegate="runAddQuestion()" type="button" class="btn btn-default btn-sm  m-l-20 text-primary"><i class="fa fa-file"></i> Thêm Câu hỏi</button>
+                      <table class="table table-hover" aurelia-table="data.bind: listQuestion; display-data.bind: $displayDataTaiLieu; ">
+                          <thead>
+                              <tr>
+                                  <th>STT</th>
+                                  <th>Id</th>
+                                  <th>Tên câu hỏi</th>
+                                  <th>Hành động</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr repeat.for="questionItem of $displayDataTaiLieu">
+                              <td class="v-align-middle">${$index+1}</td>
+                              <td class="v-align-middle">${questionItem.id}</td>
+                              <td class="v-align-middle">${questionItem.description}</td>
+                              <td class="v-align-middle">
+                                <div class="btn-group sm-m-t-10">
+                                  <button type="button" class="btn btn-default btn-sm text-primary" click.delegate="runUpdate(questionItem,$index)"><i class="fa fa-edit"></i>Xem</button>
+                                  <button type="button" class="btn btn-default btn-sm text-primary" click.delegate="runRemove(questionItem,$index)"><i class="fa fa-edit"></i>Bỏ</button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                      </table>
+                  </h5>
                   <div class="text-right m-t-20">
                     <button click.delegate="ctrl.cancel()" type="button" class="btn btn-danger m-t-5" data-dismiss="modal">
                       <i class="fa fa-close"></i> Đóng</button>
-                    <button click.delegate="runAction(5)" type="submit" class="btn btn-primary  m-t-5">
-                      <i class="fa fa-check"></i> Lưu</button>
+                    <button show.bind="enableAction(1)" click.delegate="runAction(1)" type="submit" class="btn btn-primary  m-t-5">
+                      <i class="fa fa-check"></i>Tạo Mới</button>
+                    <button show.bind="enableAction(3)" click.delegate="runAction(3)" type="submit" class="btn btn-primary  m-t-5">
+                      <i class="fa fa-check"></i>Cập Nhật</button>
                   </div>
                 </form>
                 </div>

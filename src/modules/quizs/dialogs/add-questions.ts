@@ -18,16 +18,15 @@ import { QuizService } from '../services/quiz-service';
 import { Quiz, newQuizValidationRules } from '../models/quiz';
 import { Question } from '../../questions/models/question';
 import { QuestionService } from '../../questions/services/questionService';
-import { AddQuestions } from './add-questions';
 
 
 @inject(AuthenService, DialogController, ValidationControllerFactory, QuizService, QuestionService, DialogService)
 
-export class UpdateQuiz {
+export class AddQuestions {
   validationcontroller: ValidationController;
-  constructor(private authenSrv: AuthenService, private ctrl: DialogController, private controllerFactory, 
+  constructor(private authenSrv: AuthenService, private ctrl: DialogController, private controllerFactory,
     private QuizSrv: QuizService,
-    private QuestionSrv: QuestionService, 
+    private QuestionSrv: QuestionService,
     private dialogService: DialogService) {
     this.validationcontroller = controllerFactory.createForCurrentScope();
     this.validationcontroller.addRenderer(new BootstrapFormRenderer());
@@ -40,68 +39,58 @@ export class UpdateQuiz {
 
   item: Quiz;
   itemQuiz: Quiz[];
-  listQuestion : Question[]; 
-  allQuestion : Question[];
+  allQuestions: Question[];
+
   ListQuizStatus = ObjectStatus.ObjectStatusList();
-
-  titleWordCount: number;
-  chapWordCount: number;
-
-  uploadLink: string = AppSetting.UploadPath + '/upload';
-
-  ckconfig = {
-    extraPlugins: 'uploadimage,customupload',
-    height: '500px',
-    uploadUrl: this.uploadLink,
-    downloadUrl: AppSetting.DownloadPath
-  }
-  ckEditorValue = 'I am from viewmodel';
 
   async activate(dto: Quiz) {
     this.item = dto;
     await Promise.all([
-      this.allQuestion = await this.QuestionSrv.GetAll()
+      this.allQuestions = await this.QuestionSrv.GetAll()
     ]);
-    this.getListQuestion();  
-    logger.info('Quiz dto', this.listQuestion);
-  }
-  
-  getListQuestion() {
-    this.listQuestion = this.allQuestion.filter(a => 
-      this.item.listQuestionIds.includes(a.id)
-    );
+    this.updateCheckAllQuestions();
+    logger.info('Quiz dto', this.allQuestions);
   }
 
+  updateCheckAllQuestions(){
+    for (var i in this.allQuestions) {
+      if (this.item.listQuestionIds.includes(this.allQuestions[i].id)) {
+        this.allQuestions[i].isCheck = true;
+      }else{
+        this.allQuestions[i].isCheck = false;
+      }
+    }
+  }
+
+  toggleQuestion(id: number) {
+    if (this.item.listQuestionIds.findIndex(i => i == id) > -1) {
+      logger.info('xóa id', id, this.item.listQuestionIds.length)
+      this.item.listQuestionIds = this.item.listQuestionIds.filter(i => i != id);
+      logger.info('after xóa', id, this.item.listQuestionIds.length)
+      
+    } else {
+      this.item.listQuestionIds.push(id);
+      logger.info('thêm id', id)
+    }
+    this.updateCheckAllQuestions();
+  }
+
+
   enableAction(actionNum: number): boolean {
-    return ListAction.checkActionEnable(actionNum, this.item.status);
+    return ListAction.checkActionEnable(actionNum, this.item.quizStatus);
   }
 
   async runAction(actionCode: number) {
-    logger.info('runAction() ', actionCode);
+    let seft = this;
     logger.info('runAction() ', this.item);
+
     this.validationcontroller.validate({ object: this.item, rules: newQuizValidationRules }).then((result) => {
-      console.log(result);
       if (result.valid) {
-        this.QuizSrv.DoAction(actionCode, this.item).then(_ => {
-          console.log(result);
-          this.showSuccess()
-          this.ctrl.ok(this.item);
-        }).catch();
+        this.ctrl.ok(this.item);
         logger.info('item', this.item)
       }
     })
-  }
-  
-  runAddQuestion() {
-    logger.info("runAddQuestion()")
-    this.dialogService.open({ viewModel: AddQuestions, model: this.item }).whenClosed((result) => {
-      if (!result.wasCancelled) {
-        this.item = result.output;
-        this.getListQuestion();
-      } else {
-        logger.info("Cancel");
-      }
-    });
+
   }
 
   private showSuccess() {

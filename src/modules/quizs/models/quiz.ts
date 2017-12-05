@@ -15,21 +15,18 @@ export class Quiz extends ModelBase {
   numberOfQuestions: number
   totalQuestions: number
 
-  listQuestionIds: {
-    type: [{
-      questionId: number
-    }]
-  };
+  listQuestionIds: number[] = [];
  
   constructor() {
     super()
   }
 }
 
-export const newQuizValidationRules = ValidationRules
-  .ensure((i: Quiz) => i.id).required()
 
-  // .ensure((i: Quiz) => i.category).required()
-  // .ensure((i: Quiz) => i.tacGia).required()
+export const newQuizValidationRules = ValidationRules
+  .ensure((i: Quiz) => i.totalQuestions).required()
+  .ensure((i: Quiz) => i.numberOfQuestions).required()
+  .ensure((i: Quiz) => i.startTime).required()
+  .ensure((i: Quiz) => i.totalQuestions).required()
   .on(Quiz).rules
 

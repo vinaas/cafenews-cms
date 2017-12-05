@@ -1,0 +1,94 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active .modal.fade.stick-up .modal-dialog {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -ms-transform: translate(0);
+    }
+
+    .ux-dialog-open {
+      overflow: hidden;
+    }
+
+    .ux-dialog-open .modal {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    ux-dialog {
+      padding: 0!important;
+      box-shadow: none !important;
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .datepicker.dropdown-menu {
+      z-index: 999999!important
+    }
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <div class="modal fade stick-up" role="dialog" aria-hidden="true" data-backdrop="static" style="display:block">
+        <div class="modal-dialog modal-lg" style="width:90%">
+          <div class="modal-content">
+            <div class="modal-header clearfix text-left">
+              <button click.delegate="ctrl.cancel()" type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <i class="pg-close fs-14"></i>
+              </button>
+              <h4>Điều chỉnh câu hỏi cho Kì thi 
+                <span class="semi-bold">${item.quizInfo.quizName} </span>
+              </h4>
+              <br>
+              <h5>Đã chọn ${item.listQuestionIds.length}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                  <h5>Chọn từ Ngân Hàng Câu Hỏi
+                    <table class="table table-hover" aurelia-table="data.bind: allQuestions; display-data.bind: $displayDataTaiLieu; ">
+                      <thead>
+                        <tr>
+                          <th>STT</th>
+                          <th>Id</th>
+                          <th>isCheck</th>
+                          <th>Tên câu hỏi</th>
+                          <th>Hành động</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr repeat.for="questionItem of $displayDataTaiLieu">
+                          <td class="v-align-middle">${$index+1}</td>
+                          <td class="v-align-middle">${questionItem.id}</td>
+                          <td class="v-align-middle">
+                              <input type="checkbox" checked.bind="questionItem.isCheck" ></td>
+                          <td class="v-align-middle">${questionItem.description}</td>
+                          <td class="v-align-middle">
+                            <div class="btn-group sm-m-t-10">
+                              <button type="button" class="btn btn-default btn-sm text-primary" click.delegate="runUpdate(questionItem,$index)">
+                                <i class="fa fa-edit"></i>Xem</button>
+                              <button type="button" class="btn btn-default btn-sm text-primary" click.delegate="toggleQuestion(questionItem.id)">
+                                <i class="fa fa-edit"></i>${ questionItem.isCheck ? "Bỏ Chọn" : "Chọn" } </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </h5>
+                </div>
+                <div class="text-right m-t-20">
+                    <button click.delegate="ctrl.cancel()" type="button" class="btn btn-danger m-t-5" data-dismiss="modal">
+                      <i class="fa fa-close"></i> Đóng</button>
+                    <button click.delegate="runAction(5)" type="submit" class="btn btn-primary  m-t-5">
+                      <i class="fa fa-check"></i> Lưu</button>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

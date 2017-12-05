@@ -12,6 +12,7 @@ export class Question extends ModelBase {
   questionType:string;
   listAnswers: Array<Answer>
     
+  isCheck : boolean = false;
   constructor() {
     super()
     

@@ -3,11 +3,9 @@ import { DialogService } from "aurelia-dialog";
 import { Filter } from "../../resources/base/filter-base";
 import { logger } from "./logger";
 import { PLATFORM } from "aurelia-pal";
-import { QuestionService } from "./services/questionService";
-import { Question } from "./models/question";
-import { UpdateQuestion } from "./dialogs/updateQuestion";
-
-
+import { QuestionService } from "../questions/services/questionService";
+import { Question } from "../questions/models/question";
+import { UpdateQuestion } from "../questions/dialogs/updateQuestion";
 
 @inject(QuestionService,  DialogService)
 export class DanhSachQuestion {

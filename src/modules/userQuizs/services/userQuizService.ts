@@ -13,7 +13,7 @@ import { logger } from '../logger';
 import { UserQuiz } from '../models/UserQuiz';
 
 
-
+@inject(AuthenService, HistoryServices)
 export class UserQuizService {
  
   constructor( private authenSrv: AuthenService, private historySrv: HistoryServices) {

@@ -36,11 +36,13 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-body">
+      <button click.delegate="runCreate()" class="btn btn-default btn-sm m-b-10  m-t-5 text-primary" type="button" data-toggle="modal"><i class="fa fa-file"></i> Tạo mới</button>  
       <loader async-task.bind="asyncTask">
         <table class="table table-hover" aurelia-table="data.bind: items; display-data.bind: $displayData; ">
           <thead>
             <tr>
               <th>STT</th>
+              <th>Id</th>
               <th>Tên Kì Thi</th>
               <th>Số Câu Cho Bài Thi</th>              
               <th>Tổng Số Câu</th>              
@@ -55,6 +57,7 @@
           <tbody>
             <tr repeat.for="item of $displayData">
               <td>${$index+1}</td>
+              <td>${item.id}</td>
               <td>${item.quizInfo.quizName}</td>
               <td>${item.numberOfQuestions}</td>
               <td>${item.totalQuestions}</td>

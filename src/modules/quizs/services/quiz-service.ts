@@ -2,7 +2,7 @@
 import { BaseService } from './../../../resources/base/service-base';
 import axios from 'axios';
 import { Filter } from '../../../resources/base/filter-base';
-import { ListAction } from '../../../resources/base/status'
+import { ListAction, ObjectStatus } from '../../../resources/base/status'
 import {AppSetting} from '../../../appsettings/index'
 import { AuthenService } from '../../../authen/authenService';
 import { HistoryServices, IHistoryService } from '../../history/services/historyservices';
@@ -12,25 +12,23 @@ import { ActionHistory } from '../../history/models/actionhistory';
 import { logger } from '../logger';
 import { Quiz } from '../models/quiz';
 
-
+@inject(AuthenService, HistoryServices)
 export class QuizService {
  
   constructor( private authenSrv: AuthenService, private historySrv: HistoryServices) {
   }
  
   async DoAction(actionCode: number, item: Quiz): Promise<Quiz> {
-    item.quizStatus = ListAction.GetAfterStatus(actionCode);
+    item.status = ListAction.GetAfterStatus(actionCode);
     var rs
     if (item.id > 0) {
-
-      
       rs = await this.Patch(item);
       this.SaveHistory(actionCode.toString(), item.id.toString(), ListAction.GetHistoryMessage(actionCode), 'TODO');
-      
     }else {
       rs = await this.Post(item); 
       await this.SaveHistory(actionCode.toString(), rs.id.toString(), ListAction.GetHistoryMessage(actionCode), 'TODO');
     }
+    logger.info('after DoAction() ', actionCode, 'item ', JSON.stringify(rs))
     return rs;
   }
 
@@ -56,30 +54,21 @@ export class QuizService {
   }
 
   async Post(item: Quiz): Promise<any> {
-   
+    item.created = new Date();
+    item.createdUserId = this.authenSrv.userInfo.userId;  
+    
     item.lastModified = new Date();
     item.lastModified = this.authenSrv.userInfo.userId;
-    
+
+    item.quizStatus = ObjectStatus.ACTIVE;
     let rec = await axios.post("/api/Quizzes", item);
     return rec.data;
   }
-
+  
   
   async Patch(item: Quiz): Promise<Quiz> {
-    // if (item.trangThai == QuizStatus.APPROVEREQUEST_04 || item.trangThai == QuizStatus.EDITATAPPROVE){
-    //   item.trangThai = QuizStatus.EDITATAPPROVE; 
-    //   item.modifiedDate = new Date();
-    //   item.modifiedUserId = item.userId; //FIX sau
-    // }else if (item.trangThai == QuizStatus.PUBLISHED_014){
-    // } else if(item.trangThai == QuizStatus.DRAFT_01)
-    // {
-      
-    // }
-    // else{
-    //   item.trangThai = QuizStatus.EDIT_03; 
-    //   item.modifiedDate = new Date();
-    //   item.modifiedUserId = item.userId; //FIX sau
-    // }
+    item.lastModified = new Date();
+    item.lastModified = this.authenSrv.userInfo.userId;
     let rec = await axios.patch("/api/Quizzes/" + item.id, item);
     return rec.data;
   }
